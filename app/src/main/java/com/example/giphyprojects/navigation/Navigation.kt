@@ -1,4 +1,4 @@
-package com.example.giphyprojects.logic
+package com.example.giphyprojects.navigation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -8,7 +8,7 @@ object Navigation {
 
     const val STACK_NAME = "main_stack"
 
-    fun simpleFragmentNavigation(fragment: Fragment, fragmentManager: FragmentManager){
+    fun simpleFragmentNavigation(fragment: Fragment, fragmentManager: FragmentManager) {
         fragmentManager.beginTransaction()
             .replace(R.id.gifsFragmentContainer, fragment)
             .addToBackStack(STACK_NAME)

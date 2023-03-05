@@ -3,12 +3,10 @@ package com.example.giphyprojects.api
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.giphyprojects.model.pojo.Gif
-import com.example.giphyprojects.model.pojo.RawData
+import com.example.giphyprojects.utils.Constants
+import com.example.giphyprojects.utils.Constants.START_OFFSET
 import retrofit2.HttpException
-import retrofit2.Retrofit
 import java.io.IOException
-
-private const val START_OFFSET = 0
 
 class GifsPagingSource(
     private val retrofitClient: RetrofitClientObject,
@@ -26,24 +24,24 @@ class GifsPagingSource(
         val offset = params.key ?: START_OFFSET
         return try {
             val response = retrofitClient.apiService.getAllGifsByRequest(
-             request = request,
-             offset = offset
+                request = request,
+                offset = offset
             )
-            val gifs = response.body()?.data?: listOf()
-            val nextKey = if (gifs.isEmpty()){
+            val gifs = response.body()?.data ?: listOf()
+            val nextKey = if (gifs.isEmpty()) {
                 null
-            }else{
-                offset+25
+            } else {
+                offset + Constants.STANDART_OFFSET
             }
             LoadResult.Page(
                 data = gifs,
                 prevKey = if (offset == START_OFFSET) null
-            else offset,
+                else offset,
                 nextKey = nextKey,
             )
-        }catch (e: IOException){
+        } catch (e: IOException) {
             return LoadResult.Error(e)
-        }catch (e: HttpException){
+        } catch (e: HttpException) {
             return LoadResult.Error(e)
         }
     }

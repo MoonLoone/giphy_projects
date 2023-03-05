@@ -1,13 +1,13 @@
 package com.example.giphyprojects.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.example.giphyprojects.databinding.FragmentGifInfoBinding
 import com.example.giphyprojects.api.RetrofitClientObject
+import com.example.giphyprojects.databinding.FragmentGifInfoBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,14 +33,14 @@ class GifInfoFragment() : Fragment() {
     ): View {
         val binding = FragmentGifInfoBinding.inflate(layoutInflater)
         CoroutineScope(Dispatchers.Main).launch {
-            val gif = RetrofitClientObject.apiService.getGifById(id?:"")
+            val gif = RetrofitClientObject.apiService.getGifById(id ?: "")
             binding.tvId.text = gif.body()?.data?.id
             binding.tvTitle.text = gif.body()?.data?.title
             binding.tvRating.text = gif.body()?.data?.rating
             Glide.with(binding.root)
                 .asGif()
                 .load(
-                    gif.body()?.data?.mediaInformation?.original?.embedUrl?:""
+                    gif.body()?.data?.mediaInformation?.original?.embedUrl ?: ""
                 )
                 .into(binding.givImage)
         }
@@ -49,7 +49,7 @@ class GifInfoFragment() : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(id:String) =
+        fun newInstance(id: String) =
             GifInfoFragment().apply {
                 arguments = Bundle().apply {
                     putString(ID_KEY, id)

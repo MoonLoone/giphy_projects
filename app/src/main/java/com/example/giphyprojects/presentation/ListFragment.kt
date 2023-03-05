@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.giphyprojects.R
 import com.example.giphyprojects.databinding.FragmentListBinding
-import com.example.giphyprojects.logic.Navigation
+import com.example.giphyprojects.navigation.Navigation
 import com.example.giphyprojects.presentation.adapters.GifRecyclerAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -20,24 +20,17 @@ import kotlinx.coroutines.launch
 class ListFragment : Fragment() {
 
     val viewModel = ListFragmentViewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.getGifFromApiByRequest()
-    }
-
+    var request = "hello"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        var request = "hello"
         val adapter = GifRecyclerAdapter { id ->
             Navigation.simpleFragmentNavigation(
                 GifInfoFragment.newInstance(id),
                 parentFragmentManager
             )
         }
-
         val spanCount =
             if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
                 resources.getInteger(R.integer.portrait_span)
@@ -48,21 +41,21 @@ class ListFragment : Fragment() {
         editRequestField.setOnKeyListener { view, i, keyEvent ->
             if (keyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
                 request = editRequestField.text.toString()
-                viewModel.getGifFromApiByRequest(request)
+                collectUiState(adapter, request)
                 return@setOnKeyListener true
             } else {
                 return@setOnKeyListener false
             }
         }
-        observeViewStateUpdates(adapter)
+        collectUiState(adapter, request)
         rvGifs.adapter = adapter
         rvGifs.layoutManager = GridLayoutManager(requireContext(), spanCount)
         return binding.root
     }
 
-    private fun observeViewStateUpdates(adapter: GifRecyclerAdapter) {
+    private fun collectUiState(adapter: GifRecyclerAdapter, request: String) {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.listOfGifs.collectLatest {
+            viewModel.getGifFromApiByRequest(request).collectLatest {
                 adapter.submitData(it)
             }
         }

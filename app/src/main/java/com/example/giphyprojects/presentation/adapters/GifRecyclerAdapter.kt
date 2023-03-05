@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.giphyprojects.databinding.GifItemBinding
 import com.example.giphyprojects.model.pojo.Gif
 
-class GifRecyclerAdapter(val navigateToItemInfo: (String) -> Unit):
+class GifRecyclerAdapter(val navigateToItemInfo: (String) -> Unit) :
     PagingDataAdapter<Gif, GifRecyclerAdapter.GifViewHolder>(DiffCallback()) {
 
     private class DiffCallback : DiffUtil.ItemCallback<Gif>() {
@@ -27,10 +26,11 @@ class GifRecyclerAdapter(val navigateToItemInfo: (String) -> Unit):
             }
             Glide.with(binding.root)
                 .asGif()
-                .override(420,320)
+                .override(420, 320)
                 .load(
-                    item.mediaInformation?.original?.embedUrl?:""
+                    item.mediaInformation?.original?.embedUrl ?: ""
                 )
+                .skipMemoryCache(false)
                 .into(binding.ivGif)
         }
 
@@ -43,7 +43,7 @@ class GifRecyclerAdapter(val navigateToItemInfo: (String) -> Unit):
     }
 
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {
-        holder.bind(getItem(position)?:Gif())
+        holder.bind(getItem(position) ?: Gif())
     }
 
 }
