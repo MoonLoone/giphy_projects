@@ -14,7 +14,9 @@ interface GifApi {
     @GET("search")
     suspend fun getAllGifsByRequest(
         @Query("q") request: String,
-        @Query("api_key") apiKey: String = RetrofitClientObject.API_KEY
+        @Query("api_key") apiKey: String = RetrofitClientObject.API_KEY,
+        @Query("limit") limit: Int = 25,
+        @Query("offset") offset: Int = 0,
     ): Response<RawData>
 
     @GET("{id}")

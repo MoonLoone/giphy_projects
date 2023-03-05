@@ -5,5 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class RawData(
     @SerializedName("data")
-    val data: List<Gif> = listOf<Gif>()
+    val data: List<Gif> = listOf<Gif>(),
+    @SerializedName("pagination")
+    val pagination: Pagination? = null,
 )

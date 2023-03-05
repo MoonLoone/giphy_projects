@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:contentDescription="@string/gif_content_description">
+    android:layout_height="wrap_content"
+    >
 
-</ImageView>
+    <ImageView
+        android:id="@+id/ivGif"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/gif_content_description"/>
+
+</androidx.cardview.widget.CardView>

@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.giphyprojects.databinding.GifItemBinding
 import com.example.giphyprojects.model.pojo.Gif
 
-class GifRecyclerAdapter(val callback: (String) -> Unit):
+class GifRecyclerAdapter(val navigateToItemInfo: (String) -> Unit):
     ListAdapter<Gif, GifRecyclerAdapter.GifViewHolder>(DiffCallback()) {
 
     private class DiffCallback : DiffUtil.ItemCallback<Gif>() {
@@ -22,14 +22,15 @@ class GifRecyclerAdapter(val callback: (String) -> Unit):
 
         fun bind(item: Gif) {
             binding.root.setOnClickListener {
-                callback.invoke(item.id)
+                navigateToItemInfo.invoke(item.id)
             }
             Glide.with(binding.root)
                 .asGif()
+                .override(420,320)
                 .load(
                     item.mediaInformation?.original?.embedUrl?:""
                 )
-                .into(binding.root)
+                .into(binding.ivGif)
         }
 
     }

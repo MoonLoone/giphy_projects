@@ -39,11 +39,14 @@ dependencies {
 
     def retrofit_version = '2.9.0'
     def gson_version = '2.9.0'
-
+    def paging_version = '3.2.0-alpha04'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.google.code.gson:gson:$gson_version"
     implementation "com.squareup.retrofit2:converter-gson:$gson_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+    //Paging3
+    implementation "androidx.paging:paging-runtime:$paging_version"
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.15.0'

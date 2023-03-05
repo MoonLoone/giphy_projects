@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.ListFragment"
     android:orientation="vertical">
 
@@ -11,10 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/edit_request_hint"
-        android:inputType="text" />
+        android:inputType="text"
+        android:layout_margin="8dp"
+        android:importantForAutofill="no" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvGifs"
+        tools:listitem="@layout/gif_item"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
