@@ -7,14 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.giphyprojects.R
 import com.example.giphyprojects.databinding.FragmentListBinding
 import com.example.giphyprojects.logic.Navigation
-import com.example.giphyprojects.model.pojo.Gif
 import com.example.giphyprojects.presentation.adapters.GifRecyclerAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
@@ -61,13 +60,11 @@ class ListFragment : Fragment() {
         return binding.root
     }
 
-    private fun observeViewStateUpdates(adapter: GifRecyclerAdapter) =
-        CoroutineScope(Dispatchers.Main).launch {
-            viewModel.isLoading.collect {
-                if (!it) {
-                    adapter.submitList(viewModel.listOfGifs)
-                }
+    private fun observeViewStateUpdates(adapter: GifRecyclerAdapter) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.listOfGifs.collectLatest {
+                adapter.submitData(it)
             }
         }
-
+    }
 }

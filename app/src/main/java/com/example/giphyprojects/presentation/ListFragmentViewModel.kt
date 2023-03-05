@@ -1,10 +1,9 @@
 package com.example.giphyprojects.presentation
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.giphyprojects.model.RetrofitClientObject
+import androidx.paging.PagingData
+import com.example.giphyprojects.api.RemoteDataSource
+import com.example.giphyprojects.api.RetrofitClientObject
 import com.example.giphyprojects.model.pojo.Gif
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,17 +12,12 @@ import kotlinx.coroutines.launch
 
 class ListFragmentViewModel : ViewModel() {
 
-    var listOfGifs = listOf<Gif>()
+    var listOfGifs = emptyFlow<PagingData<Gif>>()
     val isLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
     fun getGifFromApiByRequest(request: String = "hello") = effect {
         isLoading.value = true
-        val response = RetrofitClientObject.apiService.getAllGifsByRequest(
-            request,
-        )
-        if (response.isSuccessful && response.body() != null){
-            listOfGifs = response.body()?.data!!
-        }
+        listOfGifs = RemoteDataSource(RetrofitClientObject).getGifs(request)
         isLoading.value = false
     }
 
@@ -31,6 +25,5 @@ class ListFragmentViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             function.invoke()
         }
-
 
 }

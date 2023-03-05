@@ -1,4 +1,4 @@
-package com.example.giphyprojects.model
+package com.example.giphyprojects.api
 
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit

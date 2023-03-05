@@ -2,6 +2,7 @@ package com.example.giphyprojects.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -10,7 +11,7 @@ import com.example.giphyprojects.databinding.GifItemBinding
 import com.example.giphyprojects.model.pojo.Gif
 
 class GifRecyclerAdapter(val navigateToItemInfo: (String) -> Unit):
-    ListAdapter<Gif, GifRecyclerAdapter.GifViewHolder>(DiffCallback()) {
+    PagingDataAdapter<Gif, GifRecyclerAdapter.GifViewHolder>(DiffCallback()) {
 
     private class DiffCallback : DiffUtil.ItemCallback<Gif>() {
         override fun areItemsTheSame(oldItem: Gif, newItem: Gif) = oldItem === newItem
@@ -42,7 +43,7 @@ class GifRecyclerAdapter(val navigateToItemInfo: (String) -> Unit):
     }
 
     override fun onBindViewHolder(holder: GifViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(getItem(position)?:Gif())
     }
 
 }

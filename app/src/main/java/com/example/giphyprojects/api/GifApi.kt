@@ -1,9 +1,7 @@
-package com.example.giphyprojects.model
+package com.example.giphyprojects.api
 
-import com.example.giphyprojects.model.pojo.Gif
 import com.example.giphyprojects.model.pojo.LonelyGif
 import com.example.giphyprojects.model.pojo.RawData
-import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
