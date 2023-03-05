@@ -18,7 +18,6 @@ class ListFragmentViewModel : ViewModel() {
         isLoading.value = true
         val response = RetrofitClientObject.apiService.getAllGifsByRequest(
             request,
-            RetrofitClientObject.API_KEY
         )
         if (response.isSuccessful && response.body() != null){
             listOfGifs = response.body()?.data!!

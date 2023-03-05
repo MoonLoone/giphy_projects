@@ -11,9 +11,11 @@ import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.example.giphyprojects.MainActivity
 import com.example.giphyprojects.R
 import com.example.giphyprojects.databinding.ActivityMainBinding
 import com.example.giphyprojects.databinding.FragmentListBinding
+import com.example.giphyprojects.logic.Navigation
 import com.example.giphyprojects.model.pojo.Gif
 import com.example.giphyprojects.presentation.adapters.GifRecyclerAdapter
 import kotlinx.coroutines.CoroutineScope
@@ -39,12 +41,8 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val adapter = GifRecyclerAdapter {
-            childFragmentManager.beginTransaction()
-                .add(
-                    R.id.gifsFragmentContainer,
-                    GifInfoFragment(it)
-                ).commit()
+        val adapter = GifRecyclerAdapter { id ->
+            Navigation.simpleFragmentNavigation(GifInfoFragment.newInstance(id), parentFragmentManager)
         }
         val binding = FragmentListBinding.inflate(inflater, container, false)
         val rvGifs = binding.rvGifs

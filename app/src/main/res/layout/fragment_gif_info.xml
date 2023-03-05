@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.GifInfoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/givImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/gif_content_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tvIdHard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="ID: "
+        app:layout_constraintStart_toEndOf="@id/givImage"
+        app:layout_constraintTop_toTopOf="@id/givImage" />
+
+    <TextView
+        android:id="@+id/tvId"
+        app:layout_constraintStart_toEndOf="@id/tvIdHard"
+        app:layout_constraintTop_toTopOf="@id/tvIdHard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvTitleHard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Title: "
+        app:layout_constraintStart_toEndOf="@id/givImage"
+        app:layout_constraintTop_toBottomOf="@id/tvIdHard" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tvTitleHard"
+        app:layout_constraintTop_toTopOf="@id/tvTitleHard"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tvRatingHard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Rating: "
+        app:layout_constraintStart_toEndOf="@id/givImage"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleHard" />
+
+    <TextView
+        android:id="@+id/tvRating"
+        android:text="Rating: "
+        android:layout_width="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tvRatingHard"
+        app:layout_constraintTop_toTopOf="@id/tvRatingHard"
+        android:layout_height="wrap_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
